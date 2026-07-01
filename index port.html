@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Lathika R — Portfolio</title>
+<meta name="description" content="Lathika R — CSE (Cyber Security) student, frontend developer & UI/UX enthusiast. Portfolio, projects and contact.">
+<meta property="og:title" content="Lathika R — Portfolio">
+<meta property="og:description" content="CSE (Cyber Security) student & frontend developer. Projects, skills and contact.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='80'%3E%3C/%3E%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#FAF9F6;
+    --bg-alt:#F2F0EA;
+    --surface:#FFFFFF;
+    --text:#1C1B29;
+    --text-muted:#65636F;
+    --border:#E4E1D9;
+    --accent:#3D348B;
+    --accent-soft:#EEEBFA;
+    --accent-2:#0B8A85;
+    --on-accent:#FFFFFF;
+    --shadow: 0 1px 2px rgba(28,27,41,0.05), 0 10px 28px -12px rgba(28,27,41,0.16);
+    --shadow-lg: 0 20px 60px -20px rgba(28,27,41,0.25);
+    --radius: 16px;
+    --max: 1100px;
+    --ease: cubic-bezier(.22,1,.36,1);
+  }
+  html[data-theme="dark"]{
+    --bg:#121119;
+    --bg-alt:#17151F;
+    --surface:#1C1A27;
+    --text:#F3F2EF;
+    --text-muted:#A6A3B3;
+    --border:#2B2937;
+    --accent:#9489FF;
+    --accent-soft:#262240;
+    --accent-2:#2FD7CE;
+    --on-accent:#15131F;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 14px 34px -14px rgba(0,0,0,0.6);
+    --shadow-lg: 0 24px 70px -20px rgba(0,0,0,0.7);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    transition:background .45s var(--ease), color .45s var(--ease);
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    line-height:1.1;
+    margin:0;
+    letter-spacing:-0.015em;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  button{font-family:inherit;cursor:pointer;background:none;border:none;color:inherit;}
+  img{max-width:100%;display:block;}
+  ::selection{background:var(--accent);color:var(--on-accent);}
+
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 28px; position:relative; }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono',monospace; font-size:13px;
+    color:var(--accent); margin-bottom:14px; letter-spacing:0.01em;
+  }
+  .eyebrow .bracket{ color:var(--text-muted); }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent); outline-offset:3px; border-radius:4px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ============ PRELOADER ============ */
+  #preloader{
+    position:fixed; inset:0; z-index:9999;
+    background:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:18px;
+    transition:opacity .6s var(--ease), visibility .6s var(--ease);
+  }
+  #preloader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+  .pre-mark{
+    font-family:'Fraunces',serif; font-weight:700; font-size:28px;
+    color:var(--text);
+  }
+  .pre-mark span{ color:var(--accent); }
+  .pre-bar{ width:160px; height:2px; background:var(--border); border-radius:2px; overflow:hidden; }
+  .pre-bar::after{
+    content:""; display:block; height:100%; width:40%; background:var(--accent);
+    animation:preload 1.1s ease-in-out infinite;
+  }
+  @keyframes preload{
+    0%{ transform:translateX(-100%); }
+    100%{ transform:translateX(350%); }
+  }
+
+  /* ============ SCROLL PROGRESS ============ */
+  #scrollbar{
+    position:fixed; top:0; left:0; height:3px; width:0%;
+    background:linear-gradient(90deg, var(--accent), var(--accent-2));
+    z-index:1000;
+    transition:width .1s linear;
+  }
+
+  /* ============ CURSOR GLOW (desktop only) ============ */
+  #cursorGlow{
+    position:fixed; width:380px; height:380px; border-radius:50%;
+    pointer-events:none; z-index:1;
+    background:radial-gradient(circle, color-mix(in srgb, var(--accent) 10%, transparent) 0%, transparent 70%);
+    transform:translate(-50%,-50%);
+    opacity:0; transition:opacity .4s ease;
+  }
+
+  /* ============ NAV ============ */
+  header.nav{
+    position:sticky; top:0; z-index:100;
+    background:color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    animation:dropIn .7s var(--ease) both;
+  }
+  @keyframes dropIn{ from{ transform:translateY(-100%); } to{ transform:translateY(0); } }
+  .nav-inner{
+    max-width:var(--max); margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{ font-family:'Fraunces',serif; font-weight:700; font-size:19px; letter-spacing:-0.01em; }
+  .brand span{ color:var(--accent); }
+  .nav-links{ display:flex; gap:30px; align-items:center; }
+  .nav-links a{
+    font-size:14.5px; color:var(--text-muted); position:relative; padding:4px 0;
+    transition:color .25s var(--ease);
+  }
+  .nav-links a:hover, .nav-links a.active{ color:var(--text); }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:-2px; width:0%; height:1.5px;
+    background:var(--accent); transition:width .3s var(--ease);
+  }
+  .nav-links a:hover::after, .nav-links a.active::after{ width:100%; }
+  .nav-right{ display:flex; align-items:center; gap:18px; }
+
+  .theme-toggle{
+    width:50px; height:28px; border-radius:30px; background:var(--bg-alt);
+    border:1px solid var(--border); position:relative; padding:0;
+    transition:background .3s ease, border-color .3s ease;
+  }
+  .theme-toggle .knob{
+    position:absolute; top:2px; left:2px; width:22px; height:22px; border-radius:50%;
+    background:var(--accent); color:var(--on-accent);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .4s var(--ease), background .3s ease;
+  }
+  html[data-theme="dark"] .theme-toggle .knob{ transform:translateX(22px) rotate(180deg); }
+  .theme-toggle svg{ width:13px; height:13px; }
+
+  .burger{
+    display:none; width:34px; height:34px; border:1px solid var(--border); border-radius:8px;
+    background:var(--surface); align-items:center; justify-content:center;
+  }
+  .burger span{ display:block; width:16px; height:1.5px; background:var(--text); position:relative; transition:background .3s ease; }
+  .burger span::before,.burger span::after{ content:""; position:absolute; left:0; width:16px; height:1.5px; background:var(--text); transition:transform .3s ease; }
+  .burger span::before{ top:-5px; }
+  .burger span::after{ top:5px; }
+
+  /* ============ BUTTONS ============ */
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:11px;
+    font-size:14.5px; font-weight:600; border:1px solid transparent;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .3s ease, border-color .3s ease;
+    will-change:transform;
+  }
+  .btn-primary{ background:var(--accent); color:var(--on-accent); }
+  .btn-primary:hover{ box-shadow:var(--shadow-lg); }
+  .btn-ghost{ background:transparent; border-color:var(--border); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); transform:translateY(-3px); }
+  .btn svg{ width:15px; height:15px; transition:transform .3s var(--ease); }
+  .btn-primary:hover svg{ transform:translateX(3px); }
+
+  /* ============ HERO ============ */
+  .hero{ padding:96px 0 70px; position:relative; overflow:hidden; }
+  .blob{
+    position:absolute; border-radius:50%; filter:blur(60px); opacity:.5; z-index:0;
+    animation:float 14s ease-in-out infinite;
+  }
+  .blob1{ width:340px; height:340px; background:var(--accent-soft); top:-80px; right:-60px; }
+  .blob2{ width:260px; height:260px; background:var(--accent-2); opacity:.10; bottom:-60px; left:10%; animation-delay:-6s; }
+  @keyframes float{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(-20px,24px) scale(1.06); }
+  }
+
+  .hero-inner{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;
+    position:relative; z-index:2;
+  }
+  .hero-eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:13.5px; color:var(--accent-2);
+    display:flex; align-items:center; gap:8px; margin-bottom:16px;
+    opacity:0; animation:riseIn .7s var(--ease) .1s forwards;
+  }
+  .hero-eyebrow .dot{ width:7px;height:7px;border-radius:50%; background:var(--accent-2); animation:pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+
+  .hero h1{ font-size:clamp(38px, 5.4vw, 60px); opacity:0; animation:riseIn .8s var(--ease) .22s forwards; }
+  .hero h1 .role{
+    display:block; color:var(--accent); font-style:italic; font-weight:500; font-size:0.6em; margin-top:8px;
+  }
+  .hero-sub{
+    margin-top:22px; color:var(--text-muted); font-size:17px; max-width:48ch;
+    opacity:0; animation:riseIn .8s var(--ease) .36s forwards;
+  }
+  @keyframes riseIn{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:translateY(0); } }
+
+  .terminal{
+    margin-top:28px; background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:16px 18px; font-family:'JetBrains Mono',monospace; font-size:13.5px; box-shadow:var(--shadow);
+    max-width:480px; opacity:0; animation:riseIn .8s var(--ease) .5s forwards;
+  }
+  .terminal .dots{ display:flex; gap:6px; margin-bottom:12px; }
+  .terminal .dots span{ width:9px; height:9px; border-radius:50%; background:var(--border); }
+  .terminal-line{ color:var(--text-muted); }
+  .terminal-line .prompt{ color:var(--accent-2); }
+  .terminal-line .out{ color:var(--text); }
+  .cursor{ display:inline-block; width:7px; height:14px; background:var(--accent); margin-left:2px; vertical-align:middle; animation:blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero-btns{ margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; opacity:0; animation:riseIn .8s var(--ease) .64s forwards; }
+
+  /* ---- Avatar card ---- */
+  .hero-art{ position:relative; display:flex; align-items:center; justify-content:center; opacity:0; animation:riseIn 1s var(--ease) .3s forwards; }
+  .avatar-wrap{ position:relative; width:280px; height:280px; }
+  .avatar-ring{
+    position:absolute; inset:-14px; border-radius:50%;
+    border:1.5px dashed var(--border);
+    animation:spin 30s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .avatar{
+    width:100%; height:100%; border-radius:50%;
+    background:linear-gradient(150deg, var(--accent) 0%, var(--accent-2) 130%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:var(--shadow-lg);
+    position:relative; overflow:hidden;
+  }
+  .avatar::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 25%, rgba(255,255,255,.25), transparent 55%);
+  }
+  .avatar .mono-letters{
+    font-family:'Fraunces',serif; font-style:italic; font-weight:600;
+    font-size:96px; color:#fff; letter-spacing:-0.03em; position:relative;
+  }
+  .status-pill{
+    position:absolute; bottom:6px; left:50%; transform:translateX(-50%);
+    background:var(--surface); border:1px solid var(--border); border-radius:30px;
+    padding:8px 16px; display:flex; align-items:center; gap:8px;
+    font-size:12.5px; font-weight:600; box-shadow:var(--shadow);
+    white-space:nowrap;
+  }
+  .status-pill .ping{ width:8px; height:8px; border-radius:50%; background:#33C26B; position:relative; }
+  .status-pill .ping::after{
+    content:""; position:absolute; inset:-4px; border-radius:50%; border:1.5px solid #33C26B;
+    animation:ringPulse 1.8s ease-out infinite;
+  }
+  @keyframes ringPulse{ 0%{ transform:scale(.6); opacity:1; } 100%{ transform:scale(1.9); opacity:0; } }
+
+  .chip{
+    position:absolute; background:var(--surface); border:1px solid var(--border);
+    border-radius:10px; padding:7px 12px; font-family:'JetBrains Mono',monospace;
+    font-size:11.5px; font-weight:600; color:var(--accent); box-shadow:var(--shadow);
+    animation:chipFloat 5s ease-in-out infinite;
+  }
+  .chip1{ top:6%; left:-14%; animation-delay:0s; }
+  .chip2{ top:62%; right:-18%; animation-delay:-1.6s; }
+  .chip3{ bottom:-2%; left:4%; animation-delay:-3.2s; }
+  @keyframes chipFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-10px); } }
+
+  /* ============ STATS ============ */
+  .stats-section{ padding:50px 0; border-top:1px solid var(--border); }
+  .stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+  .stat{
+    text-align:center; padding:18px 14px; border-right:1px solid var(--border);
+  }
+  .stat:last-child{ border-right:none; }
+  .stat .num{
+    font-family:'Fraunces',serif; font-weight:700; font-size:clamp(28px,3.6vw,40px);
+    color:var(--accent);
+  }
+  .stat .lbl{ margin-top:6px; font-size:13px; color:var(--text-muted); }
+
+  /* ============ MARQUEE ============ */
+  .marquee-strip{
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    background:var(--bg-alt); overflow:hidden; padding:16px 0;
+  }
+  .marquee-track{
+    display:flex; gap:40px; white-space:nowrap; width:max-content;
+    animation:marquee 22s linear infinite;
+  }
+  .marquee-track span{
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-muted);
+    display:flex; align-items:center; gap:40px;
+  }
+  .marquee-track span::after{ content:"•"; color:var(--accent); margin-left:40px; }
+  @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ============ SECTION SHARED ============ */
+  section{ padding:90px 0; border-top:1px solid var(--border); }
+  .section-head{ margin-bottom:48px; max-width:560px; }
+  .section-head h2{ font-size:clamp(28px,3.4vw,38px); }
+  .section-head p{ color:var(--text-muted); margin-top:12px; font-size:16px; }
+
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+  .stagger.in > *{ animation:riseIn .7s var(--ease) both; }
+  .stagger.in > *:nth-child(1){ animation-delay:.05s; }
+  .stagger.in > *:nth-child(2){ animation-delay:.15s; }
+  .stagger.in > *:nth-child(3){ animation-delay:.25s; }
+  .stagger.in > *:nth-child(4){ animation-delay:.35s; }
+
+  /* ============ ABOUT ============ */
+  .about-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:50px; align-items:start; }
+  .about-text p{ color:var(--text-muted); font-size:16.5px; margin-bottom:18px; }
+  .about-text p strong{ color:var(--text); font-weight:600; }
+  .quote-line{
+    font-family:'Fraunces',serif; font-style:italic; font-size:19px; color:var(--text);
+    border-left:2.5px solid var(--accent); padding-left:18px; margin:26px 0; line-height:1.5;
+  }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:9px; margin-top:18px; }
+  .tag-row .pill{ animation:none; }
+
+  .fact-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:26px; box-shadow:var(--shadow); transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .fact-card:hover{ transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+  .fact-row{ display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border); font-size:14.5px; }
+  .fact-row:last-child{ border-bottom:none; }
+  .fact-row .k{ color:var(--text-muted); }
+  .fact-row .v{ font-weight:600; text-align:right; }
+
+  /* ============ SKILLS ============ */
+  .skill-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .skill-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:26px; transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s ease;
+  }
+  .skill-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lg); border-color:var(--accent); }
+  .skill-card h3{ font-size:16px; font-family:'Inter',sans-serif; font-weight:700; margin-bottom:18px; display:flex; align-items:center; gap:9px; }
+  .skill-card h3 .ic{ width:30px; height:30px; border-radius:8px; background:var(--accent-soft); color:var(--accent); display:flex; align-items:center; justify-content:center; }
+  .skill-card h3 .ic svg{ width:16px; height:16px; }
+  .skill-row{ display:flex; align-items:center; justify-content:space-between; padding:9px 0; font-size:14px; }
+  .skill-row .meter{ display:flex; gap:4px; }
+  .skill-row .meter span{ width:7px; height:7px; border-radius:50%; background:var(--border); transition:background .3s ease; }
+  .skill-row .meter span.filled{ background:var(--accent); }
+
+  /* ============ PROJECTS ============ */
+  .project-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; perspective:1000px; }
+  .project-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:28px; display:flex; flex-direction:column; gap:14px;
+    transition:transform .15s ease, box-shadow .35s var(--ease), border-color .35s ease;
+    transform-style:preserve-3d; will-change:transform;
+  }
+  .project-card:hover{ box-shadow:var(--shadow-lg); border-color:var(--accent); }
+  .project-top{ display:flex; align-items:center; justify-content:space-between; }
+  .project-top h3{ font-family:'Fraunces',serif; font-size:20px; font-weight:600; }
+  .lang-tag{ font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--accent-2); border:1px solid var(--border); padding:4px 9px; border-radius:6px; }
+  .project-card p{ color:var(--text-muted); font-size:14.5px; flex-grow:1; }
+  .project-foot{ display:flex; align-items:center; justify-content:space-between; }
+  .project-link{ display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600; color:var(--accent); }
+  .project-link svg{ width:13px; height:13px; transition:transform .3s var(--ease); }
+  .project-link:hover svg{ transform:translate(3px,-3px); }
+  .project-tag-mini{ font-size:11.5px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; }
+
+  /* ============ RESUME ============ */
+  .resume-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:34px; display:flex; gap:26px; align-items:flex-start; box-shadow:var(--shadow);
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .resume-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+  .resume-icon{
+    width:54px; height:54px; border-radius:12px; background:var(--accent-soft); color:var(--accent);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .resume-icon svg{ width:26px; height:26px; }
+  .resume-body h3{ font-size:21px; }
+  .resume-body .org{ color:var(--accent); font-weight:600; margin-top:4px; font-size:15px; }
+  .resume-body .meta{ color:var(--text-muted); font-size:14px; margin-top:6px; }
+  .resume-tags{ margin-top:16px; display:flex; gap:8px; flex-wrap:wrap; }
+
+  .learning-grid{ margin-top:22px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  .learning-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;
+    display:flex; align-items:center; gap:14px; transition:transform .3s var(--ease), border-color .3s ease;
+  }
+  .learning-card:hover{ transform:translateX(4px); border-color:var(--accent); }
+  .learning-card .dotmark{ width:8px;height:8px;border-radius:50%; background:var(--accent-2); flex-shrink:0; }
+  .learning-card p{ font-size:14px; }
+  .learning-card .small{ font-size:12px; color:var(--text-muted); margin-top:2px; }
+
+  /* ============ CONTACT ============ */
+  .contact-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:50px; }
+  .contact-list a{
+    display:flex; align-items:center; gap:14px; padding:16px 0; border-bottom:1px solid var(--border);
+    font-size:15px; transition:color .25s ease, padding-left .25s var(--ease);
+  }
+  .contact-list a:first-child{ padding-top:0; }
+  .contact-list a:hover{ color:var(--accent); padding-left:8px; }
+  .contact-list .ico{
+    width:38px; height:38px; border-radius:10px; background:var(--accent-soft); color:var(--accent);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .3s var(--ease);
+  }
+  .contact-list a:hover .ico{ transform:scale(1.1) rotate(-4deg); }
+  .contact-list .ico svg{ width:17px; height:17px; }
+  .contact-list .label{ color:var(--text-muted); font-size:12px; display:block; }
+
+  form.contact-form{ display:flex; flex-direction:column; gap:16px; }
+  .field{ display:flex; flex-direction:column; gap:7px; }
+  .field label{ font-size:13px; color:var(--text-muted); }
+  .field input, .field textarea{
+    background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:13px 14px;
+    font-family:inherit; font-size:14.5px; color:var(--text); transition:border-color .25s ease, box-shadow .25s ease;
+  }
+  .field input:focus, .field textarea:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft); }
+  .field textarea{ resize:vertical; min-height:110px; }
+  .form-note{ font-size:12.5px; color:var(--text-muted); transition:color .3s ease; }
+  .form-note.sent{ color:var(--accent-2); font-weight:600; }
+
+  /* ============ FOOTER ============ */
+  footer{ border-top:1px solid var(--border); padding:36px 0; }
+  .footer-inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+  .footer-inner p{ color:var(--text-muted); font-size:13.5px; }
+  .footer-social{ display:flex; gap:14px; }
+  .footer-social a{
+    width:34px; height:34px; border:1px solid var(--border); border-radius:9px;
+    display:flex; align-items:center; justify-content:center; color:var(--text-muted);
+    transition:color .25s ease, border-color .25s ease, transform .25s var(--ease);
+  }
+  .footer-social a:hover{ color:var(--accent); border-color:var(--accent); transform:translateY(-3px); }
+  .footer-social svg{ width:15px; height:15px; }
+
+  /* ============ BACK TO TOP ============ */
+  #toTop{
+    position:fixed; bottom:26px; right:26px; width:46px; height:46px; border-radius:50%;
+    background:var(--accent); color:var(--on-accent); display:flex; align-items:center; justify-content:center;
+    box-shadow:var(--shadow-lg); opacity:0; transform:translateY(16px) scale(.9); pointer-events:none;
+    transition:opacity .35s var(--ease), transform .35s var(--ease); z-index:90;
+  }
+  #toTop.show{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+  #toTop svg{ width:18px; height:18px; }
+  #toTop:hover{ transform:translateY(-4px) scale(1.05); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 880px){
+    .hero-inner{ grid-template-columns:1fr; }
+    .hero-art{ order:-1; margin-bottom:10px; }
+    .about-grid{ grid-template-columns:1fr; }
+    .skill-grid{ grid-template-columns:1fr 1fr; }
+    .project-grid{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; }
+    .resume-card{ flex-direction:column; }
+    .stats-grid{ grid-template-columns:repeat(2,1fr); }
+    .stat:nth-child(2){ border-right:none; }
+    .stat{ border-bottom:1px solid var(--border); }
+    .learning-grid{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 640px){
+    .nav-links{
+      position:fixed; top:64px; left:0; right:0; background:var(--bg); border-bottom:1px solid var(--border);
+      flex-direction:column; align-items:flex-start; padding:18px 28px 26px; gap:16px;
+      transform:translateY(-130%); transition:transform .35s var(--ease);
+    }
+    .nav-links.open{ transform:translateY(0); }
+    .burger{ display:flex; }
+    .skill-grid{ grid-template-columns:1fr; }
+    section{ padding:64px 0; }
+    .hero{ padding:56px 0 50px; }
+    .avatar-wrap{ width:220px; height:220px; }
+    .avatar .mono-letters{ font-size:76px; }
+    .chip{ display:none; }
+    #cursorGlow{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="pre-mark">LR<span>.</span></div>
+  <div class="pre-bar"></div>
+</div>
+
+<div id="scrollbar"></div>
+<div id="cursorGlow"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#home" class="brand">LR<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" data-link>About</a></li>
+      <li><a href="#projects" data-link>Projects</a></li>
+      <li><a href="#skills" data-link>Skills</a></li>
+      <li><a href="#resume" data-link>Resume</a></li>
+      <li><a href="#contact" data-link>Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <span class="knob" id="knobIcon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </span>
+      </button>
+      <button class="burger" id="burger" aria-label="Open menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home" style="border-top:none;">
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="wrap hero-inner">
+    <div>
+      <div class="hero-eyebrow"><span class="dot"></span>Available for internships</div>
+      <h1>Lathika R<span class="role">Computer Science Student — Cyber Security</span></h1>
+      <p class="hero-sub">I build clean, usable interfaces and explore how secure systems are designed underneath them. Currently learning, building and breaking things, on purpose.</p>
+
+      <div class="terminal mono">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="terminal-line"><span class="prompt">lathika@portfolio</span>:~$ whoami</div>
+        <div class="terminal-line out" id="typedLine"></div>
+      </div>
+
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary magnetic">View Projects
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <div class="avatar-wrap">
+        <div class="avatar-ring"></div>
+        <!-- Replace this div's contents with <img src="your-photo.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"> once you have a photo -->
+        <div class="avatar">
+          <img src="image1.jpeg" alt="Lathika R" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+        </div>
+        <div class="status-pill"><span class="ping"></span>Open to work</div>
+        <div class="chip chip1">&lt;/&gt; HTML</div>
+        <div class="chip chip2">{ } Java</div>
+        <div class="chip chip3">⚙ UI/UX</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats-section reveal">
+  <div class="wrap stats-grid">
+    <div class="stat"><div class="num" data-count="2">0</div><div class="lbl">Year of B.E CSE</div></div>
+    <div class="stat"><div class="num" data-count="4">0</div><div class="lbl">Practice Projects</div></div>
+    <div class="stat"><div class="num" data-count="5">0</div><div class="lbl">Languages &amp; Tools</div></div>
+    <div class="stat"><div class="num">1</div><div class="lbl">Core Focus: Cyber Security</div></div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>HTML</span><span>CSS</span><span>JAVASCRIPT</span><span>JAVA</span><span>PYTHON</span><span>UI/UX</span><span>CYBER SECURITY</span><span>PROBLEM SOLVING</span>
+    <span>HTML</span><span>CSS</span><span>JAVASCRIPT</span><span>JAVA</span><span>PYTHON</span><span>UI/UX</span><span>CYBER SECURITY</span><span>PROBLEM SOLVING</span>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow"><span class="bracket">&lt;</span>about<span class="bracket">/&gt;</span></span>
+      <h2>A bit about me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a <strong>second-year Computer Science Engineering student specialising in Cyber Security</strong> at Prince Dr. K. Vasudevan College of Engineering and Technology. I like understanding how things work end to end — from how a webpage is structured and styled, to how the systems behind it are kept secure.</p>
+        <p>Outside coursework, I spend my time building small front-end projects, practising object-oriented programming in Java, and picking up Python and UI/UX design along the way. I care about interfaces that are simple, accessible, and don't make people think too hard to use them.</p>
+        <div class="quote-line">"Good design is invisible. Good security is silent."</div>
+        <p>I'm always open to internships, collaborative projects, and conversations with people building interesting things.</p>
+        <div class="tag-row">
+          <span class="pill">Currently exploring: Network Security</span>
+          <span class="pill">React</span>
+          <span class="pill">Advanced DSA</span>
+          <span class="pill">Figma</span>
+        </div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-row"><span class="k">Location</span><span class="v">Tamil Nadu, India</span></div>
+        <div class="fact-row"><span class="k">Focus</span><span class="v">Frontend + Cyber Security</span></div>
+        <div class="fact-row"><span class="k">Currently</span><span class="v">B.E CSE (Cyber Security), Yr 2</span></div>
+        <div class="fact-row"><span class="k">Open to</span><span class="v">Internships & Projects</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow"><span class="bracket">&lt;</span>skills<span class="bracket">/&gt;</span></span>
+      <h2>What I work with</h2>
+      <p>A growing toolkit, built one project at a time.</p>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-card">
+        <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3l1.5 17L12 22l6.5-2L20 3H4z"/><path d="M8 8h8M8 12h7M9 16h5"/></svg></span>Languages & Markup</h3>
+        <div class="skill-row"><span>HTML</span><span class="meter"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span></span></div>
+        <div class="skill-row"><span>CSS</span><span class="meter"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span></span></div>
+        <div class="skill-row"><span>JavaScript</span><span class="meter"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span></span></div>
+      </div>
+      <div class="skill-card">
+        <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>Programming</h3>
+        <div class="skill-row"><span>Java</span><span class="meter"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span></span></div>
+        <div class="skill-row"><span>Python</span><span class="meter"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span></span></div>
+        <div class="skill-row"><span>Problem Solving</span><span class="meter"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span></span></div>
+      </div>
+      <div class="skill-card">
+        <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span>Design</h3>
+        <div class="skill-row"><span>UI/UX</span><span class="meter"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span></span></div>
+        <div class="skill-row"><span>Wireframing</span><span class="meter"><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span><span></span></span></div>
+        <div class="skill-row"><span>Figma</span><span class="meter"><span class="filled"></span><span class="filled"></span><span></span><span></span><span></span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="wrap reveal stagger">
+    <div class="section-head">
+      <span class="eyebrow"><span class="bracket">&lt;</span>projects<span class="bracket">/&gt;</span></span>
+      <h2>Things I've built</h2>
+      <p>A few projects from my GitHub — practice, experiments, and learning in public.</p>
+    </div>
+    <div class="project-grid">
+
+      <div class="project-card tilt">
+        <div class="project-top">
+          <h3>webtechnology</h3>
+          <span class="lang-tag">HTML / CSS</span>
+        </div>
+        <p>Web technology fundamentals — building structured, styled pages using HTML and CSS best practices.</p>
+        <div class="project-foot">
+          <span class="project-tag-mini">web basics</span>
+          <a class="project-link" href="https://github.com/im-lathika/Web-Technology" target="_blank" rel="noopener">
+            View on GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card tilt">
+        <div class="project-top">
+          <h3>python</h3>
+          <span class="lang-tag">Python</span>
+        </div>
+        <p>Python programming exercises covering core syntax, logic-building and problem solving fundamentals.</p>
+        <div class="project-foot">
+          <span class="project-tag-mini">exercises</span>
+          <a class="project-link" href="https://github.com/im-lathika/Python" target="_blank" rel="noopener">
+            View on GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card tilt">
+        <div class="project-top">
+          <h3>oops</h3>
+          <span class="lang-tag">Java</span>
+        </div>
+        <p>Core object-oriented programming concepts in Java — classes, inheritance, encapsulation and polymorphism.</p>
+        <div class="project-foot">
+          <span class="project-tag-mini">concepts</span>
+          <a class="project-link" href="https://github.com/im-lathika/OOPS" target="_blank" rel="noopener">
+            View on GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card tilt">
+        <div class="project-top">
+          <h3>College-Management-System</h3>
+          <span class="lang-tag">HTML</span>
+        </div>
+        <p>A modern and responsive college website for Pondicherry Institute of Technology & Science (PITS), featuring admissions, courses, facilities, gallery, and contact management.</p>
+        <div class="project-foot">
+          <span class="project-tag-mini">web app</span>
+          <a class="project-link" href="https://github.com/im-lathika/College-Management-System" target="_blank" rel="noopener">
+            View on GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESUME / EDUCATION ============ -->
+<section id="resume">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow"><span class="bracket">&lt;</span>resume<span class="bracket">/&gt;</span></span>
+      <h2>Education & Learning</h2>
+    </div>
+    <div class="resume-card">
+      <div class="resume-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10l-10-5-10 5 10 5 10-5z"/><path d="M6 12v5c0 1.5 2.5 3 6 3s6-1.5 6-3v-5"/></svg>
+      </div>
+      <div class="resume-body">
+        <h3>B.E. — Computer Science Engineering (Cyber Security)</h3>
+        <p class="org">Prince Dr. K. Vasudevan College of Engineering and Technology</p>
+        <p class="meta">Currently in Year 2</p>
+        <div class="resume-tags">
+          <span class="pill">Cyber Security</span>
+          <span class="pill">Data Structures</span>
+          <span class="pill">OOP</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="learning-grid">
+      <div class="learning-card"><span class="dotmark"></span><div><p>Network Security Fundamentals</p><p class="small">Self-paced learning</p></div></div>
+      <div class="learning-card"><span class="dotmark"></span><div><p>UI/UX Design Principles</p><p class="small">Self-paced learning</p></div></div>
+      <div class="learning-card"><span class="dotmark"></span><div><p>Advanced Data Structures</p><p class="small">In progress</p></div></div>
+      <div class="learning-card"><span class="dotmark"></span><div><p>React Fundamentals</p><p class="small">In progress</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <span class="eyebrow"><span class="bracket">&lt;</span>contact<span class="bracket">/&gt;</span></span>
+      <h2>Let's talk</h2>
+      <p>Have an internship, project, or opportunity in mind? I'd love to hear from you.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-list">
+        <a href="mailto:lathika967@gmail.com">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg></span>
+          <span><span class="label">Email</span>lathika967@gmail.com</span>
+        </a>
+        <a href="tel:+918925742624">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg></span>
+          <span><span class="label">Phone</span>+91 89257 42624</span>
+        </a>
+        <a href="https://github.com/im-lathika" target="_blank" rel="noopener">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-1.93c-3.2.7-3.87-1.54-3.87-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.24 2.75.12 3.04.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.78 1.08.78 2.18v3.23c0 .31.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg></span>
+          <span><span class="label">GitHub</span>github.com/im-lathika</span>
+        </a>
+        <a href="https://www.linkedin.com/in/lathika-r-9a8b70385/" target="_blank" rel="noopener">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></span>
+          <span><span class="label">LinkedIn</span>linkedin.com/in/lathika-r</span>
+        </a>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" required placeholder="Your name">
+        </div>
+        <div class="field">
+          <label for="senderEmail">Email</label>
+          <input type="email" id="senderEmail" required placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" required placeholder="What would you like to talk about?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary magnetic" style="align-self:flex-start;">
+          Send Message
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
+        <p class="form-note" id="formNote">This opens your email app with the message pre-filled, addressed to lathika967@gmail.com.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <p>© <span id="year"></span> Lathika R. Built with care.</p>
+    <div class="footer-social">
+      <a href="https://github.com/im-lathika" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-1.93c-3.2.7-3.87-1.54-3.87-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.24 2.75.12 3.04.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.41-5.25 5.69.42.36.78 1.08.78 2.18v3.23c0 .31.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/lathika-r-9a8b70385/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      </a>
+      <a href="mailto:lathika967@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+  // ---- Preloader ----
+  window.addEventListener('load', () => {
+    setTimeout(() => document.getElementById('preloader').classList.add('hide'), 450);
+  });
+
+  // ---- Theme toggle (no persistence, defaults to light) ----
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const knob = document.getElementById('knobIcon');
+  const sunIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>`;
+  const moonIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>`;
+  themeToggle.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    knob.innerHTML = isDark ? sunIcon : moonIcon;
+  });
+
+  // ---- Mobile nav ----
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // ---- Scroll progress + back to top + scrollspy ----
+  const scrollbar = document.getElementById('scrollbar');
+  const toTop = document.getElementById('toTop');
+  const navAnchors = document.querySelectorAll('[data-link]');
+  const sections = ['about','projects','skills','resume','contact'].map(id => document.getElementById(id));
+
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    scrollbar.style.width = pct + '%';
+    toTop.classList.toggle('show', h.scrollTop > 600);
+
+    let current = '';
+    sections.forEach(sec => {
+      if(sec){
+        const rect = sec.getBoundingClientRect();
+        if(rect.top <= 140 && rect.bottom >= 140) current = sec.id;
+      }
+    });
+    navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+  });
+  toTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  // ---- Scroll reveal ----
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => io.observe(r));
+
+  // ---- Stats count-up ----
+  const stats = document.querySelectorAll('[data-count]');
+  const statIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        let cur = 0;
+        const step = Math.max(1, Math.round(target / 30));
+        const tick = () => {
+          cur += step;
+          if(cur >= target){ el.textContent = target; return; }
+          el.textContent = cur;
+          requestAnimationFrame(tick);
+        };
+        tick();
+        statIO.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  stats.forEach(s => statIO.observe(s));
+
+  // ---- Hero terminal typing ----
+  const typedLine = document.getElementById('typedLine');
+  const fullText = "Lathika R — CSE (Cyber Security) student & frontend developer.";
+  let i = 0;
+  function typeChar(){
+    if(i <= fullText.length){
+      typedLine.innerHTML = fullText.slice(0, i) + '<span class="cursor"></span>';
+      i++;
+      setTimeout(typeChar, 28);
+    }
+  }
+  setTimeout(typeChar, 900);
+
+  // ---- Magnetic buttons ----
+  document.querySelectorAll('.magnetic').forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const r = btn.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width/2;
+      const y = e.clientY - r.top - r.height/2;
+      btn.style.transform = `translate(${x*0.18}px, ${y*0.3}px)`;
+    });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0,0)'; });
+  });
+
+  // ---- Tilt on project cards ----
+  document.querySelectorAll('.tilt').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translateY(-6px) rotateX(${y * -6}deg) rotateY(${x * 6}deg)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = 'translateY(0) rotateX(0) rotateY(0)'; });
+  });
+
+  // ---- Cursor glow (desktop only) ----
+  if (window.matchMedia('(pointer:fine)').matches) {
+    const glow = document.getElementById('cursorGlow');
+    document.addEventListener('mousemove', (e) => {
+      glow.style.opacity = '1';
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
+  }
+
+  // ---- Contact form -> mailto ----
+  const formNote = document.getElementById('formNote');
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('senderEmail').value;
+    const message = document.getElementById('message').value;
+    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
+    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+    window.location.href = `mailto:lathika967@gmail.com?subject=${subject}&body=${body}`;
+    formNote.textContent = 'Opening your email app…';
+    formNote.classList.add('sent');
+  });
+
+  // ---- Footer year ----
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- Console easter egg ----
+  console.log('%cHey there 👋', 'font-size:16px;font-weight:700;color:#3D348B;');
+  console.log('%cLooking at the code? I am too, always learning. — Lathika R', 'font-size:12px;color:#65636F;');
+</script>
+
+</body>
+</html>
